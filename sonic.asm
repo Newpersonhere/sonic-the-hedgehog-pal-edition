@@ -878,7 +878,7 @@ HBlank:
 		move.l	(a0)+,(a1)
 		move.l	(a0)+,(a1)
 		move.l	(a0)+,(a1)
-		move.w	#$8A00+223,4(a1) ; reset HBlank register
+		move.w	#$8A00+239,4(a1) ; reset HBlank register
 		movem.l	(sp)+,a0-a1
 		tst.b	($FFFFF64F).w
 		bne.s	loc_119E
