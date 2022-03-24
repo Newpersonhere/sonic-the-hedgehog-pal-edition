@@ -1,8 +1,21 @@
-s1disasm_git
+Sonic the Hedgehog - PAL Edition
 ============
 
-The very latest Sonic 1 Disassembly.
+An attempt to create a properly PAL optimised version of Sonic 1
 
+This project is in the preliminary stages, expect graphical glitches in the bottommost 16 pixels
+
+#### Design Goals / TODO
+- [x] Correct music playback speed on PAL machines
+- [x] 240 line mode, making full use of the extra 16px of vertical resolution
+- [x] Correct timing intervals for HUD timer 
+- [ ] Tweaked game speeds for gameplay parity with NTSC version
+
+#### Stretch Goals
+- [ ] Perfect reproduction of NTSC gameplay speed on PAL50 - To be verified by playing back TAS recordings
+
+
+Derived from Sonic Retro s1dasm:
 See: http://info.sonicretro.org/Disassemblies
 
 DISCLAIMER:
