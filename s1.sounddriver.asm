@@ -222,6 +222,15 @@ UpdateMusic:
 ; loc_71C44:
 DoStartZ80:
 		startZ80
+		
+		btst #6,(v_megadrive).w		; Is megadrive PAL
+		beq.s @skip			; Branch if not
+		cmpi.b #$5,(v_palmuscounter).w  ; Are we on a 5th frame
+		bne.s @skip 			; Branch if not
+		move.b #$0,(v_palmuscounter).w  ; Reset counter
+		bra.w UpdateMusic		; Call UpdateMusic a second time
+@skip:
+		addq.b #$1,(v_palmuscounter).w	; Increment the frame counter
 		rts	
 ; End of function UpdateMusic
 
