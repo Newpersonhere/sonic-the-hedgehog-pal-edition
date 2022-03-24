@@ -4427,10 +4427,10 @@ loc_6972:
 		bclr	#1,(a2)
 		beq.s	loc_698E
 		; Draw new tiles at the top
-		move.w	#240,d4
+		move.w	#224,d4
 		moveq	#-16,d5
 		bsr.w	Calc_VRAM_Pos
-		move.w	#240,d4
+		move.w	#224,d4
 		moveq	#-16,d5
 		if Revision=0
 		moveq	#(512/16)-1,d6
@@ -4523,10 +4523,10 @@ loc_69EE:
 			bclr	#5,(a2)
 			beq.s	locret_69F2
 			; Draw entire row at the bottom
-			move.w	#240,d4
+			move.w	#224,d4
 			moveq	#0,d5
 			bsr.w	Calc_VRAM_Pos_2
-			move.w	#240,d4
+			move.w	#224,d4
 			moveq	#0,d5
 			moveq	#(512/16)-1,d6
 			bsr.w	DrawBlocks_LR_3
@@ -4648,10 +4648,10 @@ locret_6AD6:
 			bclr	#0,(a2)
 			beq.s	locj_6DD2
 			; Draw new tiles on the left
-			move.w	#240/2,d4	; Draw the bottom half of the screen
+			move.w	#224/2,d4	; Draw the bottom half of the screen
 			moveq	#-16,d5
 			bsr.w	Calc_VRAM_Pos
-			move.w	#240/2,d4
+			move.w	#224/2,d4
 			moveq	#-16,d5
 			moveq	#3-1,d6		; Draw three rows... could this be a repurposed version of the above unused code?
 			bsr.w	DrawBlocks_TB_2
@@ -4659,10 +4659,10 @@ locret_6AD6:
 			bclr	#1,(a2)
 			beq.s	locj_6DF2
 			; Draw new tiles on the right
-			move.w	#240/2,d4
+			move.w	#224/2,d4
 			move.w	#320,d5
 			bsr.w	Calc_VRAM_Pos
-			move.w	#240/2,d4
+			move.w	#224/2,d4
 			move.w	#320,d5
 			moveq	#3-1,d6
 			bsr.w	DrawBlocks_TB_2
@@ -4680,7 +4680,7 @@ locret_6AD6:
 			bne.s	locj_6E28
 			bclr	#1,(a2)
 			beq.s	locj_6E72
-			move.w	#240,d4
+			move.w	#224,d4
 	locj_6E28:
 			lea	(locj_6DF4+1).l,a0
 			move.w	(v_bgscreenposy).w,d0
@@ -4773,7 +4773,7 @@ locret_6AD6:
 			bne.s	locj_6F66
 			bclr	#1,(a2)
 			beq.s	locj_6FAE
-			move.w	#240,d4
+			move.w	#224,d4
 	locj_6F66:
 			lea	(locj_6EF2+1).l,a0
 			move.w	(v_bgscreenposy).w,d0
@@ -5169,7 +5169,7 @@ LoadTilesFromStart:
 
 DrawChunks:
 		moveq	#-16,d4
-		moveq	#((240+16+16)/16)-1,d6
+		moveq	#((224+16+16)/16)-1,d6
 
 	@loop:
 		movem.l	d4-d6,-(sp)
