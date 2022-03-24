@@ -218,7 +218,7 @@ Deform_SLZ:
 		lsr.w	#3,d0
 		lea	(a2,d0.w),a2
 		lea	(v_hscrolltablebuffer).w,a1
-		move.w	#$E,d1
+		move.w	#$F,d1
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
 		swap	d0

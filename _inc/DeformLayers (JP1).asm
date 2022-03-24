@@ -178,7 +178,7 @@ Deform_LZ:
 		add.w	(v_screenposy).w,d3
 		andi.w	#$FF,d3
 		lea	(v_hscrolltablebuffer).w,a1
-		move.w	#$DF,d1
+		move.w	#239,d1
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
 		move.w	d0,d6
@@ -412,7 +412,7 @@ Deform_SLZ:
 ;-------------------------------------------------------------------------------
 Bg_Scroll_X:
 		lea	(v_hscrolltablebuffer).w,a1
-		move.w	#$E,d1
+		move.w	#$F,d1
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
 		swap	d0

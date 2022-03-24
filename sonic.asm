@@ -2312,7 +2312,7 @@ Tit_ChkLevSel:
 		bsr.w	PalLoad2	; load level select palette
 		lea	(v_hscrolltablebuffer).w,a1
 		moveq	#0,d0
-		move.w	#$DF,d1
+		move.w	#239,d1
 
 	Tit_ClrScroll1:
 		move.l	d0,(a1)+
