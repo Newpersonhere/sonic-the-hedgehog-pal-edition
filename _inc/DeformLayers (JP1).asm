@@ -136,7 +136,7 @@ Deform_GHZ:
 		asl.l	#8,d2
 		moveq	#0,d3
 		move.w	d0,d3
-		move.w	#$47,d1
+		move.w	#$63,d1
 		add.w	d4,d1
 	@waterLoop:			; water deformation
 		move.w	d3,d0
@@ -638,7 +638,7 @@ Deform_SBZ2:;loc_68A2:
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 	; copy fg & bg x-position to hscroll table
 		lea	(v_hscrolltablebuffer).w,a1
-		move.w	#223,d1
+		move.w	#239,d1
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
 		swap	d0

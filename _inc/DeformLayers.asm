@@ -134,7 +134,7 @@ Deform_LZ:
 		bsr.w	ScrollBlock1
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
-		move.w	#223,d1
+		move.w	#239,d1
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
 		swap	d0
@@ -180,7 +180,7 @@ loc_6402:
 		bsr.w	ScrollBlock3
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
-		move.w	#223,d1
+		move.w	#239,d1
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
 		swap	d0
@@ -323,7 +323,7 @@ Deform_SYZ:
 		bsr.w	ScrollBlock1
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
-		move.w	#223,d1
+		move.w	#239,d1
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
 		swap	d0
@@ -354,7 +354,7 @@ Deform_SBZ:
 		bsr.w	ScrollBlock1
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
-		move.w	#223,d1
+		move.w	#239,d1
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
 		swap	d0

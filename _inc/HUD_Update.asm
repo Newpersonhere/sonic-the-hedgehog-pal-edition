@@ -42,8 +42,8 @@ HUD_Update:
 		cmpi.l	#(9*$10000)+(59*$100)+59,(a1)+ ; is the time 9:59:59?
 		beq.s	TimeOver	; if yes, branch
 
-		addq.b	#1,-(a1)	; increment 1/60s counter
-		cmpi.b	#60,(a1)	; check if passed 60
+		addq.b	#1,-(a1)	; increment 1/50s counter
+		cmpi.b	#50,(a1)	; check if passed 50
 		bcs.s	@chklives
 		move.b	#0,(a1)
 		addq.b	#1,-(a1)	; increment second counter

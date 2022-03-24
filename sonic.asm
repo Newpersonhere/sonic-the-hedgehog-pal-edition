@@ -127,7 +127,7 @@ SRAMSupport:	if EnableSRAM=1
 		dc.l $20202020		; SRAM start ($200001)
 		dc.l $20202020		; SRAM end ($20xxxx)
 Notes:		dc.b "                                                    " ; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
-Region:		dc.b "JUE             " ; Region (Country code)
+Region:		dc.b "E               " ; Region (Country code)
 EndOfHeader:
 
 ; ===========================================================================
@@ -225,7 +225,7 @@ SetupValues:	dc.w $8000		; VDP register start number
 		dc.l vdp_control_port	; VDP control
 
 		dc.b 4			; VDP $80 - 8-colour mode
-		dc.b $14		; VDP $81 - Megadrive mode, DMA enable
+		dc.b $1C		; VDP $81 - Megadrive mode, DMA enable
 		dc.b ($C000>>10)	; VDP $82 - foreground nametable address
 		dc.b ($F000>>10)	; VDP $83 - window nametable address
 		dc.b ($E000>>13)	; VDP $84 - background nametable address
@@ -274,7 +274,7 @@ SetupValues:	dc.w $8000		; VDP register start number
 		dc.b $36, $E9		; ld	(hl),e9h
 		dc.b $E9		; jp	(hl)
 
-		dc.w $8104		; VDP display mode
+		dc.w $810C		; VDP display mode
 		dc.w $8F02		; VDP increment
 		dc.l $C0000000		; CRAM write mode
 		dc.l $40000010		; VSRAM address 0
@@ -673,7 +673,7 @@ VBla_08:
 	@waterbelow:
 		move.w	(v_hbla_hreg).w,(a5)
 
-		writeVRAM	v_hscrolltablebuffer,$380,vram_hscroll
+		writeVRAM	v_hscrolltablebuffer,$3C0,vram_hscroll
 		writeVRAM	v_spritetablebuffer,$280,vram_sprites
 		tst.b	(f_sonframechg).w ; has Sonic's sprite changed?
 		beq.s	@nochg		; if not, branch
@@ -721,7 +721,7 @@ VBla_0A:
 		bsr.w	ReadJoypads
 		writeCRAM	v_pal_dry,$80,0
 		writeVRAM	v_spritetablebuffer,$280,vram_sprites
-		writeVRAM	v_hscrolltablebuffer,$380,vram_hscroll
+		writeVRAM	v_hscrolltablebuffer,$3C0,vram_hscroll
 		startZ80
 		bsr.w	PalCycle_SS
 		tst.b	(f_sonframechg).w ; has Sonic's sprite changed?
@@ -754,7 +754,7 @@ VBla_0C:
 
 	@waterbelow:
 		move.w	(v_hbla_hreg).w,(a5)
-		writeVRAM	v_hscrolltablebuffer,$380,vram_hscroll
+		writeVRAM	v_hscrolltablebuffer,$3C0,vram_hscroll
 		writeVRAM	v_spritetablebuffer,$280,vram_sprites
 		tst.b	(f_sonframechg).w
 		beq.s	@nochg
@@ -793,7 +793,7 @@ VBla_16:
 		bsr.w	ReadJoypads
 		writeCRAM	v_pal_dry,$80,0
 		writeVRAM	v_spritetablebuffer,$280,vram_sprites
-		writeVRAM	v_hscrolltablebuffer,$380,vram_hscroll
+		writeVRAM	v_hscrolltablebuffer,$3C0,vram_hscroll
 		startZ80
 		tst.b	(f_sonframechg).w
 		beq.s	@nochg
@@ -825,7 +825,7 @@ sub_106E:
 
 	@waterbelow:
 		writeVRAM	v_spritetablebuffer,$280,vram_sprites
-		writeVRAM	v_hscrolltablebuffer,$380,vram_hscroll
+		writeVRAM	v_hscrolltablebuffer,$3C0,vram_hscroll
 		startZ80
 		rts	
 ; End of function sub_106E
@@ -964,7 +964,7 @@ VDPSetupGame:
 
 		move.w	(VDPSetupArray+2).l,d0
 		move.w	d0,(v_vdp_buffer1).w
-		move.w	#$8A00+223,(v_hbla_hreg).w	; H-INT every 224th scanline
+		move.w	#$8A00+239,(v_hbla_hreg).w	; H-INT every 240th scanline
 		moveq	#0,d0
 		move.l	#$C0000000,(vdp_control_port).l ; set VDP to CRAM write
 		move.w	#$3F,d7
@@ -990,7 +990,7 @@ VDPSetupGame:
 
 ; ===========================================================================
 VDPSetupArray:	dc.w $8004		; 8-colour mode
-		dc.w $8134		; enable V.interrupts, enable DMA
+		dc.w $813C		; enable V.interrupts, enable DMA
 		dc.w $8200+(vram_fg>>10) ; set foreground nametable address
 		dc.w $8300+($A000>>10)	; set window nametable address
 		dc.w $8400+(vram_bg>>13) ; set background nametable address
@@ -2823,7 +2823,7 @@ Level_ClrRam:
 		move.w	#$9001,(a6)		; 64-cell hscroll size
 		move.w	#$8004,(a6)		; 8-colour mode
 		move.w	#$8720,(a6)		; set background colour (line 3; colour 0)
-		move.w	#$8A00+223,(v_hbla_hreg).w ; set palette change position (for water)
+		move.w	#$8A00+239,(v_hbla_hreg).w ; set palette change position (for water)
 		move.w	(v_hbla_hreg).w,(a6)
 		cmpi.b	#id_LZ,(v_zone).w ; is level LZ?
 		bne.s	Level_LoadPal	; if not, branch
@@ -3877,7 +3877,7 @@ GM_Ending:
 		move.w	#$9001,(a6)		; 64-cell hscroll size
 		move.w	#$8004,(a6)		; 8-colour mode
 		move.w	#$8720,(a6)		; set background colour (line 3; colour 0)
-		move.w	#$8A00+223,(v_hbla_hreg).w ; set palette change position (for water)
+		move.w	#$8A00+239,(v_hbla_hreg).w ; set palette change position (for water)
 		move.w	(v_hbla_hreg).w,(a6)
 		move.w	#30,(v_air).w
 		move.w	#id_EndZ<<8,(v_zone).w ; set level number to 0600 (extra flowers)
@@ -4351,10 +4351,10 @@ LoadTilesAsYouMove:
 		bclr	#0,(a2)
 		beq.s	loc_6908
 		; Draw new tiles at the top
-		moveq	#-16,d4	; Y coordinate. Note that 16 is the size of a block in pixels
+		moveq	#0,d4	; Y coordinate. Note that 16 is the size of a block in pixels
 		moveq	#-16,d5 ; X coordinate
 		bsr.w	Calc_VRAM_Pos
-		moveq	#-16,d4 ; Y coordinate
+		moveq	#0,d4 ; Y coordinate
 		moveq	#-16,d5 ; X coordinate
 		bsr.w	DrawBlocks_LR
 
@@ -4362,12 +4362,18 @@ loc_6908:
 		bclr	#1,(a2)
 		beq.s	loc_6922
 		; Draw new tiles at the bottom
-		move.w	#224,d4	; Start at bottom of the screen. Since this draws from top to bottom, we don't need 224+16
+		move.w	#240,d4	; Start at bottom of the screen. Since this draws from top to bottom, we don't need 240+16
+		moveq	#-16,d5
+		bsr.w	Calc_VRAM_Pos
+		move.w	#240,d4
+		moveq	#-16,d5
+		bsr.w	DrawBlocks_LR
+		move.w	#224,d4
 		moveq	#-16,d5
 		bsr.w	Calc_VRAM_Pos
 		move.w	#224,d4
 		moveq	#-16,d5
-		bsr.w	DrawBlocks_LR
+		bsr.w	DrawBlocks_LR		
 
 loc_6922:
 		bclr	#2,(a2)
@@ -4421,10 +4427,10 @@ loc_6972:
 		bclr	#1,(a2)
 		beq.s	loc_698E
 		; Draw new tiles at the top
-		move.w	#224,d4
+		move.w	#240,d4
 		moveq	#-16,d5
 		bsr.w	Calc_VRAM_Pos
-		move.w	#224,d4
+		move.w	#240,d4
 		moveq	#-16,d5
 		if Revision=0
 		moveq	#(512/16)-1,d6
@@ -4517,10 +4523,10 @@ loc_69EE:
 			bclr	#5,(a2)
 			beq.s	locret_69F2
 			; Draw entire row at the bottom
-			move.w	#224,d4
+			move.w	#240,d4
 			moveq	#0,d5
 			bsr.w	Calc_VRAM_Pos_2
-			move.w	#224,d4
+			move.w	#240,d4
 			moveq	#0,d5
 			moveq	#(512/16)-1,d6
 			bsr.w	DrawBlocks_LR_3
@@ -4642,10 +4648,10 @@ locret_6AD6:
 			bclr	#0,(a2)
 			beq.s	locj_6DD2
 			; Draw new tiles on the left
-			move.w	#224/2,d4	; Draw the bottom half of the screen
+			move.w	#240/2,d4	; Draw the bottom half of the screen
 			moveq	#-16,d5
 			bsr.w	Calc_VRAM_Pos
-			move.w	#224/2,d4
+			move.w	#240/2,d4
 			moveq	#-16,d5
 			moveq	#3-1,d6		; Draw three rows... could this be a repurposed version of the above unused code?
 			bsr.w	DrawBlocks_TB_2
@@ -4653,10 +4659,10 @@ locret_6AD6:
 			bclr	#1,(a2)
 			beq.s	locj_6DF2
 			; Draw new tiles on the right
-			move.w	#224/2,d4
+			move.w	#240/2,d4
 			move.w	#320,d5
 			bsr.w	Calc_VRAM_Pos
-			move.w	#224/2,d4
+			move.w	#240/2,d4
 			move.w	#320,d5
 			moveq	#3-1,d6
 			bsr.w	DrawBlocks_TB_2
@@ -4674,7 +4680,7 @@ locret_6AD6:
 			bne.s	locj_6E28
 			bclr	#1,(a2)
 			beq.s	locj_6E72
-			move.w	#224,d4
+			move.w	#240,d4
 	locj_6E28:
 			lea	(locj_6DF4+1).l,a0
 			move.w	(v_bgscreenposy).w,d0
@@ -4767,7 +4773,7 @@ locret_6AD6:
 			bne.s	locj_6F66
 			bclr	#1,(a2)
 			beq.s	locj_6FAE
-			move.w	#224,d4
+			move.w	#240,d4
 	locj_6F66:
 			lea	(locj_6EF2+1).l,a0
 			move.w	(v_bgscreenposy).w,d0
@@ -4893,7 +4899,7 @@ DrawBlocks_LR_3:
 ; when the camera's moving left or right
 ; DrawTiles_TB:
 DrawBlocks_TB:
-		moveq	#((224+16+16)/16)-1,d6	; Draw the entire height of the screen + two extra rows
+		moveq	#((240+16+16)/16)-1,d6	; Draw the entire height of the screen + two extra rows
 ; DrawTiles_TB_2:
 DrawBlocks_TB_2:
 		move.l	#$800000,d7	; Delta between rows of tiles
@@ -5163,7 +5169,7 @@ LoadTilesFromStart:
 
 DrawChunks:
 		moveq	#-16,d4
-		moveq	#((224+16+16)/16)-1,d6
+		moveq	#((240+16+16)/16)-1,d6
 
 	@loop:
 		movem.l	d4-d6,-(sp)
@@ -6340,7 +6346,7 @@ BuildSprites:
 		bmi.s	@skipObject	; top edge out of bounds
 		move.w	d2,d1
 		sub.w	d0,d1
-		cmpi.w	#224,d1
+		cmpi.w	#240,d1
 		bge.s	@skipObject
 		addi.w	#128,d2		; VDP sprites start at 128px
 		bra.s	@drawObject
