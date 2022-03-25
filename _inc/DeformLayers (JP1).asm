@@ -66,7 +66,7 @@ Deform_GHZ:
 		andi.w	#$7FF,d0
 		lsr.w	#5,d0
 		neg.w	d0
-		addi.w	#$20,d0
+		addi.w	#$10,d0
 		bpl.s	@limitY
 		moveq	#0,d0
 	@limitY:
