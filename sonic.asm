@@ -4411,10 +4411,10 @@ DrawBGScrollBlock1:
 		bclr	#0,(a2)
 		beq.s	loc_6972
 		; Draw new tiles at the top
-		moveq	#-16,d4
+		moveq	#0,d4
 		moveq	#-16,d5
 		bsr.w	Calc_VRAM_Pos
-		moveq	#-16,d4
+		moveq	#0,d4
 		moveq	#-16,d5
 		if Revision=0
 		moveq	#(512/16)-1,d6	 ; Draw entire row of plane
@@ -4427,6 +4427,17 @@ loc_6972:
 		bclr	#1,(a2)
 		beq.s	loc_698E
 		; Draw new tiles at the top
+		move.w	#240,d4
+		moveq	#-16,d5
+		bsr.w	Calc_VRAM_Pos
+		move.w	#224,d4
+		moveq	#-16,d5
+		if Revision=0
+		moveq	#(512/16)-1,d6
+		bsr.w	DrawBlocks_LR_2
+		else
+			bsr.w	DrawBlocks_LR
+		endc		
 		move.w	#224,d4
 		moveq	#-16,d5
 		bsr.w	Calc_VRAM_Pos
@@ -4511,10 +4522,10 @@ loc_69EE:
 			bclr	#4,(a2)
 			beq.s	locj_6D88
 			; Draw entire row at the top
-			moveq	#-16,d4
+			moveq	#0,d4
 			moveq	#0,d5
 			bsr.w	Calc_VRAM_Pos_2
-			moveq	#-16,d4
+			moveq	#0,d4
 			moveq	#0,d5
 			moveq	#(512/16)-1,d6
 			bsr.w	DrawBlocks_LR_3
@@ -4523,6 +4534,13 @@ loc_69EE:
 			bclr	#5,(a2)
 			beq.s	locret_69F2
 			; Draw entire row at the bottom
+			move.w	#240,d4
+			moveq	#0,d5
+			bsr.w	Calc_VRAM_Pos_2
+			move.w	#240,d4
+			moveq	#0,d5
+			moveq	#(512/16)-1,d6
+			bsr.w	DrawBlocks_LR_3			
 			move.w	#224,d4
 			moveq	#0,d5
 			bsr.w	Calc_VRAM_Pos_2
@@ -5168,8 +5186,8 @@ LoadTilesFromStart:
 
 
 DrawChunks:
-		moveq	#-16,d4
-		moveq	#((240+16+16)/16)-1,d6
+		moveq	#0,d4
+		moveq	#((224+16+16)/16)-1,d6
 
 	@loop:
 		movem.l	d4-d6,-(sp)
@@ -5205,7 +5223,7 @@ DrawChunks:
 			dc.b $00,$00,$00,$00,$06,$06,$06,$04,$04,$04,$00,$00,$00,$00,$00,$00
 ;-------------------------------------------------------------------------------
 	Draw_Mz_Bg:;locj_725a:
-			moveq	#-16,d4
+			moveq	#0,d4
 			moveq	#((224+16+16)/16)-1,d6
 	locj_725E:			
 			movem.l	d4-d6,-(sp)
@@ -5221,7 +5239,7 @@ DrawChunks:
 			rts
 ;-------------------------------------------------------------------------------
 	Draw_SBz_Bg:;locj_7288:
-			moveq	#-16,d4
+			moveq	#0,d4
 			moveq	#((224+16+16)/16)-1,d6
 	locj_728C:			
 			movem.l	d4-d6,-(sp)
