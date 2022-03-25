@@ -5169,7 +5169,7 @@ LoadTilesFromStart:
 
 DrawChunks:
 		moveq	#-16,d4
-		moveq	#((224+16+16)/16)-1,d6
+		moveq	#((240+16+16)/16)-1,d6
 
 	@loop:
 		movem.l	d4-d6,-(sp)
