@@ -11,10 +11,6 @@ This project is in the preliminary stages, expect graphical glitches in the bott
 - [x] Correct timing intervals for HUD timer 
 - [ ] Tweaked game speeds for gameplay parity with NTSC version
 
-#### Stretch Goals
-- [ ] Perfect reproduction of NTSC gameplay speed on PAL50 - To be verified by playing back TAS recordings
-
-
 Derived from Sonic Retro s1dasm:
 See: http://info.sonicretro.org/Disassemblies
 
